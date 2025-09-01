@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  capcut-api:
+    build: .
+    ports:
+      - "9001:9001"
+    volumes:
+      - ./config.json:/app/config.json
+      - ./drafts:/app/drafts
+      - ./media:/app/media
+      - ./logs:/app/logs
+    environment:
+      - PYTHONPATH=/app
+      - DEBUG=0
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

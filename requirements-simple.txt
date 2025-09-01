@@ -1,0 +1,19 @@
+# 核心依赖
+flask>=2.3.0
+requests>=2.28.0
+
+# 媒体处理
+imageio>=2.25.0
+imageio-ffmpeg>=0.4.8
+
+# 系统工具
+psutil>=5.9.0
+
+# JSON处理
+json5>=0.9.0
+
+# 可选：阿里云OSS支持
+oss2>=2.17.0
+
+# 可选：MCP协议支持
+websockets>=11.0
