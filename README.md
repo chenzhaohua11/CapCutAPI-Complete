@@ -1,361 +1,310 @@
-# Connect AI generates via CapCutAPI [Try it online](https://www.capcutapi.top)
+# CapCutAPI-Complete
 
-## Project Overview
-**CapCutAPI** is a powerful editing API that empowers you to take full control of your AI-generated assets, including images, audio, video, and text. It provides the precision needed to refine and customize raw AI output, such as adjusting video speed or mirroring an image. This capability effectively solves the lack of control often found in AI video generation, allowing you to easily transform your creative ideas into polished videos.
+🎬 **CapCut API 完整版** - 功能强大的视频编辑API服务，基于剪映(CapCut/JianYing)核心功能实现
 
-All these features are designed to mirror the functionalities of the CapCut software, ensuring a familiar and efficient editing experience in the cloud.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Flask](https://img.shields.io/badge/Flask-2.3+-green.svg)](https://flask.palletsprojects.com/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Enjoy It!  😀😀😀
+## 🚀 项目简介
 
-[中文说明](README-zh.md) 
+CapCutAPI-Complete 是一个基于 Python 的完整视频编辑API服务，提供与剪映(CapCut/JianYing)类似的核心功能。通过HTTP API和MCP协议接口，您可以轻松实现：
 
-### Advantages
+- 🎞️ 视频剪辑和合并
+- 🎵 音频处理和混音
+- 📝 文字和字幕添加
+- ✨ 特效和转场效果
+- 🖼️ 贴纸和装饰元素
+- 📦 批量处理和自动化
 
-1. **API-Powered Editing:** Access all CapCut/Jianying editing features, including multi-track editing and keyframe animation, through a powerful API.
+## ✨ 核心特性
 
-2. **Real-Time Cloud Preview:** Instantly preview your edits on a webpage without downloads, dramatically improving your workflow.
+### 🎯 视频处理
+- **多轨道编辑**：支持无限视频轨道
+- **格式转换**：支持MP4、AVI、MOV、MKV等主流格式
+- **分辨率适配**：自动适配1080P、4K等分辨率
+- **帧率转换**：24fps、30fps、60fps无缝切换
+- **视频压缩**：智能压缩保持画质
 
-3. **Flexible Local Editing:** Export projects as drafts to import into CapCut or Jianying for further refinement.
+### 🎵 音频处理
+- **音频提取**：从视频中提取音频轨道
+- **音量调节**：精确到毫秒级的音量控制
+- **淡入淡出**：平滑的音频过渡效果
+- **音频混合**：多轨道音频混音
+- **格式支持**：MP3、WAV、AAC、FLAC等
 
-4. **Automated Cloud Generation:** Use the API to render and generate final videos directly in the cloud.
+### 📝 文字和字幕
+- **动态字幕**：支持SRT、ASS字幕格式
+- **字体样式**：丰富的字体和样式选项
+- **动画效果**：文字入场和出场动画
+- **实时预览**：即时查看字幕效果
+- **多语言支持**：中英文等多语言字幕
 
-## Demos
+### ✨ 特效和滤镜
+- **转场效果**：100+种专业转场
+- **视觉滤镜**：电影级调色滤镜
+- **动态特效**：粒子、光效、模糊等
+- **自定义特效**：支持自定义特效参数
+- **预设模板**：一键应用专业模板
 
-<div align="center">
+### 🖼️ 贴纸和装饰
+- **静态贴纸**：PNG、JPG、SVG格式支持
+- **动态贴纸**：GIF和WebP动画贴纸
+- **自定义贴纸**：支持用户上传自定义贴纸
+- **位置控制**：精确的位置和大小调整
+- **层级管理**：灵活的图层顺序控制
 
-**MCP, create your own editing Agent**
+## 🏗️ 架构设计
 
-[![AI Cut](https://img.youtube.com/vi/fBqy6WFC78E/hqdefault.jpg)](https://www.youtube.com/watch?v=fBqy6WFC78E)
+```
+CapCutAPI-Complete/
+├── capcut_server.py      # HTTP API服务器
+├── mcp_server.py         # MCP协议服务器
+├── create_draft.py       # 草稿管理
+├── add_video_track.py    # 视频轨道管理
+├── add_audio_track.py    # 音频轨道管理
+├── add_text.py          # 文字和字幕管理
+├── add_effects.py       # 特效和滤镜管理
+├── add_stickers.py      # 贴纸和装饰管理
+├── video_utils.py       # 视频处理工具
+├── audio_utils.py       # 音频处理工具
+├── image_utils.py       # 图像处理工具
+├── utils.py             # 通用工具函数
+├── Dockerfile           # Docker容器配置
+├── docker-compose.yml   # 多服务编排
+└── requirements.txt     # 依赖包列表
+```
 
-**Combine AI-generated images and videos using CapCutAPI**
+## 🚀 快速开始
 
-[More](pattern)
+### 📋 系统要求
 
-[![Airbnb](https://img.youtube.com/vi/1zmQWt13Dx0/hqdefault.jpg)](https://www.youtube.com/watch?v=1zmQWt13Dx0)
+- **Python**: 3.8 或更高版本
+- **FFmpeg**: 最新版本
+- **操作系统**: Windows 10+/macOS 10.14+/Ubuntu 18.04+
+- **内存**: 最少4GB RAM（推荐8GB+）
+- **存储**: 至少10GB可用空间
 
-[![Horse](https://img.youtube.com/vi/IF1RDFGOtEU/hqdefault.jpg)](https://www.youtube.com/watch?v=IF1RDFGOtEU)
+### 🔧 安装步骤
 
-[![Song](https://img.youtube.com/vi/rGNLE_slAJ8/hqdefault.jpg)](https://www.youtube.com/watch?v=rGNLE_slAJ8)
-
-
-</div>
-
-## Key Features
-
-| Feature Module | API | MCP Protocol | Description |
-|---------|----------|----------|------|
-| **Draft Management** | ✅ | ✅ | Create and save Jianying/CapCut draft files |
-| **Video Processing** | ✅ | ✅ | Import, clip, transition, and apply effects to multiple video formats |
-| **Audio Editing** | ✅ | ✅ | Audio tracks, volume control, sound effects processing |
-| **Image Processing** | ✅ | ✅ | Image import, animation, masks, filters |
-| **Text Editing** | ✅ | ✅ | Multi-style text, shadows, backgrounds, animations |
-| **Subtitle System** | ✅ | ✅ | SRT subtitle import, style settings, time synchronization |
-| **Effects Engine** | ✅ | ✅ | Visual effects, filters, transition animations |
-| **Sticker System** | ✅ | ✅ | Sticker assets, position control, animation effects |
-| **Keyframes** | ✅ | ✅ | Property animation, timeline control, easing functions |
-| **Media Analysis** | ✅ | ✅ | Get video duration, detect format |
-
-## Quick Start
-
-### 1\. System Requirements
-
-  - Python 3.10+
-  - Jianying or CapCut International version
-  - FFmpeg
-
-### 2\. Installation and Deployment
+#### 1. 克隆项目
 
 ```bash
-# 1. Clone the project
-git clone https://github.com/sun-guannan/CapCutAPI.git
-cd CapCutAPI
-
-# 2. Create a virtual environment (recommended)
-python -m venv venv-capcut
-source venv-capcut/bin/activate  # Linux/macOS
-# or venv-capcut\Scripts\activate  # Windows
-
-# 3. Install dependencies
-pip install -r requirements.txt      # HTTP API basic dependencies
-pip install -r requirements-mcp.txt  # MCP protocol support (optional)
-
-# 4. Configuration file
-cp config.json.example config.json
-# Edit config.json as needed
+git clone https://github.com/chenzhaohua11/CapCutAPI-Complete.git
+cd CapCutAPI-Complete
 ```
 
-### 3\. Start the service
+#### 2. 安装依赖
 
 ```bash
-python capcut_server.py # Start the HTTP API server, default port: 9001
+# 创建虚拟环境
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# 或
+venv\Scripts\activate     # Windows
 
-python mcp_server.py # Start the MCP protocol service, supports stdio communication
+# 安装依赖
+pip install -r requirements.txt
 ```
 
-## MCP Integration Guide
+#### 3. 安装FFmpeg
 
-[MCP 中文文档](https://www.google.com/search?q=./MCP_%E6%96%87%E6%A1%A3_%E4%B8%AD%E6%96%87.md) • [MCP English Guide](https://www.google.com/search?q=./MCP_Documentation_English.md)
-
-### 1\. Client Configuration
-
-Create or update the `mcp_config.json` configuration file:
-
-```json
-{
-  "mcpServers": {
-    "capcut-api": {
-      "command": "python3",
-      "args": ["mcp_server.py"],
-      "cwd": "/path/to/CapCutAPI",
-      "env": {
-        "PYTHONPATH": "/path/to/CapCutAPI",
-        "DEBUG": "0"
-      }
-    }
-  }
-}
+**Ubuntu/Debian:**
+```bash
+sudo apt update
+sudo apt install ffmpeg
 ```
 
-### 2\. Connection Test
+**macOS:**
+```bash
+brew install ffmpeg
+```
+
+**Windows:**
+- 下载 [FFmpeg Windows版本](https://ffmpeg.org/download.html)
+- 解压并添加到系统PATH
+
+#### 4. 启动服务
 
 ```bash
-# Test MCP connection
-python test_mcp_client.py
+# 启动HTTP API服务器
+python capcut_server.py
 
-# Expected output
-✅ MCP server started successfully
-✅ Got 11 available tools
-✅ Draft creation test passed
+# 启动MCP服务器
+python mcp_server.py
 ```
 
-## Usage Examples
+### 🐳 Docker部署
 
-### 1\. API Example
-
-Add video material
-
-```python
-import requests
-
-# Add background video
-response = requests.post("http://localhost:9001/add_video", json={
-    "video_url": "https://example.com/background.mp4",
-    "start": 0,
-    "end": 10
-    "volume": 0.8,
-    "transition": "fade_in"
-})
-
-print(f"Video addition result: {response.json()}")
-```
-
-Create stylized text
-
-```python
-import requests
-
-# Add title text
-response = requests.post("http://localhost:9001/add_text", json={
-    "text": "Welcome to CapCutAPI",
-    "start": 0,
-    "end": 5,
-    "font": "Source Han Sans",
-    "font_color": "#FFD700",
-    "font_size": 48,
-    "shadow_enabled": True,
-    "background_color": "#000000"
-})
-
-print(f"Text addition result: {response.json()}")
-```
-
-More examples can be found in the `example.py` file.
-
-### 2\. MCP Protocol Example
-
-Complete workflow
-
-```python
-# 1. Create a new project
-draft = mcp_client.call_tool("create_draft", {
-    "width": 1080,
-    "height": 1920
-})
-draft_id = draft["result"]["draft_id"]
-
-# 2. Add background video
-mcp_client.call_tool("add_video", {
-    "video_url": "https://example.com/bg.mp4",
-    "draft_id": draft_id,
-    "start": 0,
-    "end": 10,
-    "volume": 0.6
-})
-
-# 3. Add title text
-mcp_client.call_tool("add_text", {
-    "text": "AI-Driven Video Production",
-    "draft_id": draft_id,
-    "start": 1,
-    "end": 9,
-    "font_size": 64,
-    "font_color": "#FFFFFF",
-    "position": {"x": 540, "y": 300}
-})
-```
-
-## Project Structure
-
-```
-CapCutAPI/
-├── capcut_server.py          # HTTP API server
-├── mcp_server.py             # MCP protocol server
-├── example.py               # Usage examples
-├── requirements.txt         # Python dependencies
-├── requirements-mcp.txt     # MCP protocol dependencies
-├── config.json.example    # Configuration template
-├── Dockerfile              # Docker container configuration
-├── docker-compose.yml      # Docker Compose configuration
-├── k8s/                    # Kubernetes deployment files
-│   ├── deployment.yaml
-│   └── service.yaml
-├── media/                  # Media processing modules
-│   ├── video_processor.py
-│   ├── audio_processor.py
-│   ├── image_processor.py
-│   ├── text_processor.py
-│   ├── subtitle_processor.py
-│   ├── effect_processor.py
-│   └── sticker_processor.py
-├── utils/                  # Utility modules
-│   ├── logger.py
-│   ├── config.py
-│   ├── file_utils.py
-│   └── draft_manager.py
-├── pyJianYingDraft/        # Jianying draft file format library
-├── examples/               # Example configurations
-├── templates/              # Template files
-└── nginx.conf             # Nginx configuration
-```
-
-## API Documentation
-
-### HTTP API Endpoints
-
-#### Draft Management
-- `POST /create_draft` - Create new draft
-- `GET /get_draft/{draft_id}` - Get draft details
-- `POST /update_draft` - Update draft
-- `DELETE /delete_draft/{draft_id}` - Delete draft
-- `GET /list_drafts` - List all drafts
-
-#### Media Processing
-- `POST /add_video` - Add video material
-- `POST /add_audio` - Add audio material
-- `POST /add_image` - Add image material
-- `POST /add_text` - Add text material
-- `POST /add_subtitle` - Add subtitle
-- `POST /add_effect` - Add effect
-- `POST /add_sticker` - Add sticker
-
-### MCP Protocol Tools
-
-The MCP server provides the following tools:
-
-1. `create_draft` - Create new draft
-2. `get_draft` - Get draft information
-3. `update_draft` - Update draft
-4. `add_video` - Add video material
-5. `add_audio` - Add audio material
-6. `add_image` - Add image material
-7. `add_text` - Add text material
-8. `add_subtitle` - Add subtitle
-9. `add_effect` - Add effect
-10. `add_sticker` - Add sticker
-11. `export_draft` - Export draft file
-
-## Configuration
-
-### Environment Variables
-
-- `DEBUG`: Debug mode (0/1)
-- `PORT`: Server port (default: 9001)
-- `HOST`: Server host (default: 0.0.0.0)
-- `LOG_LEVEL`: Log level (DEBUG, INFO, WARNING, ERROR)
-
-### Configuration File (config.json)
-
-```json
-{
-  "server": {
-    "host": "0.0.0.0",
-    "port": 9001,
-    "debug": false
-  },
-  "media": {
-    "max_file_size": 104857600,
-    "allowed_extensions": ["mp4", "mov", "avi", "jpg", "png", "mp3", "wav"],
-    "temp_dir": "./temp"
-  },
-  "logging": {
-    "level": "INFO",
-    "file": "capcut_api.log"
-  }
-}
-```
-
-## Deployment
-
-### Docker Deployment
+#### 1. 使用Docker Compose
 
 ```bash
-# Build image
-docker build -t capcut-api .
-
-# Run container
-docker run -p 9001:9001 capcut-api
-```
-
-### Docker Compose
-
-```bash
-# Start services
+# 启动所有服务
 docker-compose up -d
 
-# View logs
-docker-compose logs -f
+# 查看服务状态
+docker-compose ps
+
+# 查看日志
+docker-compose logs -f capcut-api
 ```
 
-### Kubernetes Deployment
+#### 2. 单独构建镜像
 
 ```bash
-# Deploy to Kubernetes
-kubectl apply -f k8s/
+# 构建镜像
+docker build -t capcut-api .
 
-# Check status
-kubectl get pods
+# 运行容器
+docker run -p 5000:5000 -v $(pwd)/data:/app/data capcut-api
 ```
 
-## Contributing
+## 📖 API使用指南
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### 🌐 HTTP API接口
 
-## License
+#### 创建项目草稿
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```bash
+curl -X POST http://localhost:5000/create_draft \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "我的第一个项目",
+    "resolution": "1920x1080",
+    "fps": 30,
+    "duration": 60
+  }'
+```
 
-## Support
+#### 添加视频
 
-- 📧 Email: support@capcutapi.com
-- 💬 Discord: [Join our community](https://discord.gg/capcutapi)
-- 📖 Documentation: [Full documentation](https://docs.capcutapi.com)
+```bash
+curl -X POST http://localhost:5000/add_video \
+  -H "Content-Type: application/json" \
+  -d '{
+    "draft_id": "draft_123456",
+    "video_url": "https://example.com/video.mp4",
+    "start_time": 0,
+    "duration": 10,
+    "position": {"x": 0, "y": 0},
+    "size": {"width": 1920, "height": 1080}
+  }'
+```
 
-## Acknowledgments
+#### 添加音频
 
-- Thanks to the CapCut team for providing inspiration
-- Thanks to all contributors and community members
-- Special thanks to the open-source community
+```bash
+curl -X POST http://localhost:5000/add_audio \
+  -H "Content-Type: application/json" \
+  -d '{
+    "draft_id": "draft_123456",
+    "audio_url": "https://example.com/audio.mp3",
+    "start_time": 0,
+    "duration": 10,
+    "volume": 0.8
+  }'
+```
+
+#### 添加文字
+
+```bash
+curl -X POST http://localhost:5000/add_text \
+  -H "Content-Type: application/json" \
+  -d '{
+    "draft_id": "draft_123456",
+    "content": "Hello, CapCut API!",
+    "start_time": 2,
+    "duration": 5,
+    "position": {"x": 100, "y": 100},
+    "font_size": 48,
+    "color": "#FFFFFF"
+  }'
+```
+
+#### 添加特效
+
+```bash
+curl -X POST http://localhost:5000/add_effect \
+  -H "Content-Type: application/json" \
+  -d '{
+    "draft_id": "draft_123456",
+    "effect_type": "fade_in",
+    "start_time": 0,
+    "duration": 2,
+    "intensity": 0.8
+  }'
+```
+
+#### 导出视频
+
+```bash
+curl -X POST http://localhost:5000/export_video \
+  -H "Content-Type: application/json" \
+  -d '{
+    "draft_id": "draft_123456",
+    "format": "mp4",
+    "quality": "high",
+    "fps": 30
+  }'
+```
+
+### 🔌 MCP协议接口
+
+MCP (Media Control Protocol) 提供更高性能的接口：
+
+```python
+from mcp_client import MCPClient
+
+client = MCPClient("localhost", 5001)
+
+# 创建项目
+draft = client.create_draft(
+    name="MCP项目",
+    resolution="1920x1080",
+    fps=30
+)
+
+# 添加媒体
+video_id = client.add_video(draft.id, "video.mp4")
+audio_id = client.add_audio(draft.id, "audio.mp3")
+text_id = client.add_text(draft.id, "Hello World")
+
+# 应用特效
+client.add_transition(video_id, "fade_in")
+client.add_filter(video_id, "vintage")
+
+# 导出结果
+output_path = client.export(draft.id, "final_video.mp4")
+```
+
+## 📁 项目结构
+
+```
+CapCutAPI-Complete/
+├── 📁 项目根目录
+├── 📁 data/                    # 数据存储目录
+│   ├── 📁 uploads/            # 上传文件
+│   ├── 📁 drafts/             # 项目草稿
+│   ├── 📁 exports/            # 导出文件
+│   └── 📁 cache/              # 缓存文件
+├── 📁 templates/              # 模板文件
+├── 📁 config/                 # 配置文件
+├── 📁 logs/                   # 日志文件
+├── 📁 tests/                  # 测试文件
+└── 📁 docs/                   # 文档文件
+```
+
+## 📞 联系方式
+
+- **项目维护者**: chenzhaohua11
+- **邮箱**: 863654981@qq.com
+- **GitHub**: [chenzhaohua11](https://github.com/chenzhaohua11)
+- **项目地址**: [CapCutAPI-Complete](https://github.com/chenzhaohua11/CapCutAPI-Complete)
+
+---
+
+<div align="center">
+  <p>⭐ 如果这个项目对你有帮助，请给我们一个星标！</p>
+  <p><a href="https://github.com/chenzhaohua11/CapCutAPI-Complete">🌟 Star this repo</a></p>
+</div>
