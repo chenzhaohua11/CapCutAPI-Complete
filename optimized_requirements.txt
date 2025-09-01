@@ -1,0 +1,42 @@
+# CapCutAPI 精简依赖配置
+# 核心依赖 - 仅包含必需项
+
+# Web框架
+Flask==3.0.0
+Flask-CORS==4.0.0
+
+# 媒体处理
+Pillow==10.1.0
+opencv-python==4.8.1.78
+
+# 剪映SDK
+pyJianYingDraft>=1.0.0
+
+# 缓存和优化
+redis==5.0.1
+
+# 异步支持
+aiofiles==23.2.1
+asyncio-throttle==1.0.2
+
+# 工具类
+python-dotenv==1.0.0
+requests==2.31.0
+
+# 性能监控（可选）
+opentelemetry-api==1.21.0
+opentelemetry-sdk==1.21.0
+
+# 开发工具
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# 注意：移除以下冗余依赖
+# - numpy (opencv-python已包含)
+# - scipy (未使用)
+# - matplotlib (未使用)
+# - pandas (未使用)
+# - sqlalchemy (未使用)
+# - celery (使用asyncio替代)
+# - gunicorn (生产环境单独安装)
+# - supervisor (生产环境单独安装)
