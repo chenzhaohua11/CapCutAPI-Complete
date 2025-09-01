@@ -1,105 +1,103 @@
 
-# Connect AI generates via CapCutAPI [Try it online](https://www.capcutapi.top)
+# CapCutAPI - Connect AI with Professional Video Editing [Try Online](https://www.capcutapi.top)
 
 ## Project Overview
-**CapCutAPI** is a powerful editing API that empowers you to take full control of your AI-generated assets, including images, audio, video, and text. It provides the precision needed to refine and customize raw AI output, such as adjusting video speed or mirroring an image. This capability effectively solves the lack of control often found in AI video generation, allowing you to easily transform your creative ideas into polished videos.
+CapCutAPI is a powerful editing API that gives you complete control over AI-generated content including images, audio, video, and text. It provides the precision needed to refine raw AI outputs - whether adjusting video speed, mirroring images, or applying complex effects. This solves the common limitation of lacking fine-grained control in AI video generation, enabling you to transform creative concepts into polished, professional videos.
 
-All these features are designed to mirror the functionalities of the CapCut software, ensuring a familiar and efficient editing experience in the cloud.
+All features mirror the familiar CapCut/JianYing interface, ensuring an intuitive cloud-based editing experience.
 
-Enjoy It!  😀😀😀
+🚀 Get started today and bring your AI creations to life!
 
-[中文说明](README-zh.md) 
+[中文文档](README-zh.md)
 
-### Advantages
+## Why Choose CapCutAPI?
 
-1. **API-Powered Editing:** Access all CapCut/Jianying editing features, including multi-track editing and keyframe animation, through a powerful API.
+- **Complete API Access**: Full CapCut/JianYing functionality including multi-track editing, keyframe animation, and advanced effects
+- **Real-time Cloud Preview**: Instantly preview edits in your browser without downloads
+- **Flexible Workflow**: Export as drafts for local editing in CapCut/JianYing or render directly in the cloud
+- **Professional Results**: Production-ready outputs with broadcast-quality rendering
 
-2. **Real-Time Cloud Preview:** Instantly preview your edits on a webpage without downloads, dramatically improving your workflow.
-
-3. **Flexible Local Editing:** Export projects as drafts to import into CapCut or Jianying for further refinement.
-
-4. **Automated Cloud Generation:** Use the API to render and generate final videos directly in the cloud.
-
-## Demos
+## Live Demos
 
 <div align="center">
 
-**MCP, create your own editing Agent**
+**Build Your AI Editing Agent with MCP**
 
-[![AI Cut](https://img.youtube.com/vi/fBqy6WFC78E/hqdefault.jpg)](https://www.youtube.com/watch?v=fBqy6WFC78E)
+[![AI Cut Demo](https://img.youtube.com/vi/fBqy6WFC78E/hqdefault.jpg)](https://www.youtube.com/watch?v=fBqy6WFC78E)
 
-**Combine AI-generated images and videos using CapCutAPI**
+**Seamlessly Combine AI-Generated Assets**
 
-[More](pattern)
+[View More Examples](pattern)
 
-[![Airbnb](https://img.youtube.com/vi/1zmQWt13Dx0/hqdefault.jpg)](https://www.youtube.com/watch?v=1zmQWt13Dx0)
+[![Airbnb Showcase](https://img.youtube.com/vi/1zmQWt13Dx0/hqdefault.jpg)](https://www.youtube.com/watch?v=1zmQWt13Dx0)
 
-[![Horse](https://img.youtube.com/vi/IF1RDFGOtEU/hqdefault.jpg)](https://www.youtube.com/watch?v=IF1RDFGOtEU)
+[![Creative Horse](https://img.youtube.com/vi/IF1RDFGOtEU/hqdefault.jpg)](https://www.youtube.com/watch?v=IF1RDFGOtEU)
 
-[![Song](https://img.youtube.com/vi/rGNLE_slAJ8/hqdefault.jpg)](https://www.youtube.com/watch?v=rGNLE_slAJ8)
-
+[![Music Video](https://img.youtube.com/vi/rGNLE_slAJ8/hqdefault.jpg)](https://www.youtube.com/watch?v=rGNLE_slAJ8)
 
 </div>
 
-## Key Features
+## Core Features
 
-| Feature Module | API | MCP Protocol | Description |
-|---------|----------|----------|------|
-| **Draft Management** | ✅ | ✅ | Create and save Jianying/CapCut draft files |
-| **Video Processing** | ✅ | ✅ | Import, clip, transition, and apply effects to multiple video formats |
-| **Audio Editing** | ✅ | ✅ | Audio tracks, volume control, sound effects processing |
-| **Image Processing** | ✅ | ✅ | Image import, animation, masks, filters |
-| **Text Editing** | ✅ | ✅ | Multi-style text, shadows, backgrounds, animations |
-| **Subtitle System** | ✅ | ✅ | SRT subtitle import, style settings, time synchronization |
-| **Effects Engine** | ✅ | ✅ | Visual effects, filters, transition animations |
-| **Sticker System** | ✅ | ✅ | Sticker assets, position control, animation effects |
-| **Keyframes** | ✅ | ✅ | Property animation, timeline control, easing functions |
-| **Media Analysis** | ✅ | ✅ | Get video duration, detect format |
+| Feature | API | MCP | Capabilities |
+|---------|-----|-----|--------------|
+| **Draft Management** | ✅ | ✅ | Create, save, and manage CapCut/JianYing draft files |
+| **Video Processing** | ✅ | ✅ | Multi-format support, trimming, transitions, effects |
+| **Audio Editing** | ✅ | ✅ | Multi-track audio, volume control, sound effects |
+| **Image Processing** | ✅ | ✅ | Import, animations, masks, filters, overlays |
+| **Text & Titles** | ✅ | ✅ | Rich text styling, animations, shadows, backgrounds |
+| **Subtitles** | ✅ | ✅ | SRT import, styling, timing synchronization |
+| **Visual Effects** | ✅ | ✅ | Filters, transitions, particle effects, keyframe animations |
+| **Stickers & Overlays** | ✅ | ✅ | Asset library, positioning, animation controls |
+| **Keyframe Animation** | ✅ | ✅ | Property animation, timeline control, easing curves |
+| **Media Analysis** | ✅ | ✅ | Duration detection, format identification, metadata extraction |
 
-## Quick Start
+## Quick Start Guide
 
-### 1\. System Requirements
+### Prerequisites
 
-  - Python 3.10+
-  - Jianying or CapCut International version
-  - FFmpeg
+- **Python**: 3.10 or higher
+- **CapCut/JianYing**: Desktop application for local editing
+- **FFmpeg**: For media processing
 
-### 2\. Installation and Deployment
+### Installation
 
 ```bash
-# 1. Clone the project
+# Clone repository
 git clone https://github.com/sun-guannan/CapCutAPI.git
 cd CapCutAPI
 
-# 2. Create a virtual environment (recommended)
+# Create virtual environment
 python -m venv venv-capcut
 source venv-capcut/bin/activate  # Linux/macOS
-# or venv-capcut\Scripts\activate  # Windows
+# or: venv-capcut\Scripts\activate  # Windows
 
-# 3. Install dependencies
-pip install -r requirements.txt      # HTTP API basic dependencies
-pip install -r requirements-mcp.txt  # MCP protocol support (optional)
+# Install dependencies
+pip install -r requirements.txt           # Core HTTP API
+pip install -r requirements-mcp.txt      # MCP protocol (optional)
 
-# 4. Configuration file
+# Configure settings
 cp config.json.example config.json
-# Edit config.json as needed
+# Edit config.json for your environment
 ```
 
-### 3\. Start the service
+### Launch Services
 
 ```bash
-python capcut_server.py # Start the HTTP API server, default port: 9001
+# Start HTTP API server (Port 9001)
+python capcut_server.py
 
-python mcp_server.py # Start the MCP protocol service, supports stdio communication
+# Start MCP protocol server
+python mcp_server.py
 ```
 
-## MCP Integration Guide
+## MCP Protocol Integration
 
-[MCP 中文文档](https://www.google.com/search?q=./MCP_%E6%96%87%E6%A1%A3_%E4%B8%AD%E6%96%87.md) • [MCP English Guide](https://www.google.com/search?q=./MCP_Documentation_English.md)
+📖 [MCP Documentation (中文)](./MCP_文档_中文.md) • [MCP Guide (English)](./MCP_Documentation_English.md)
 
-### 1\. Client Configuration
+### Configuration
 
-Create or update the `mcp_config.json` configuration file:
+Create `mcp_config.json`:
 
 ```json
 {
@@ -117,94 +115,81 @@ Create or update the `mcp_config.json` configuration file:
 }
 ```
 
-### 2\. Connection Test
+### Test Connection
 
 ```bash
-# Test MCP connection
+# Verify MCP setup
 python test_mcp_client.py
 
-# Expected output
-✅ MCP server started successfully
-✅ Got 11 available tools
-✅ Draft creation test passed
+# Success indicators:
+✅ Server initialization
+✅ 11 tools available
+✅ Draft creation functional
 ```
 
 ## Usage Examples
 
-### 1\. API Example
+### HTTP API Examples
 
-Add video material
-
+**Add Video**
 ```python
 import requests
 
-# Add background video
 response = requests.post("http://localhost:9001/add_video", json={
     "video_url": "https://example.com/background.mp4",
     "start": 0,
-    "end": 10
+    "end": 10,
     "volume": 0.8,
     "transition": "fade_in"
 })
-
-print(f"Video addition result: {response.json()}")
+print(response.json())
 ```
 
-Create stylized text
-
+**Add Styled Text**
 ```python
-import requests
-
-# Add title text
 response = requests.post("http://localhost:9001/add_text", json={
     "text": "Welcome to CapCutAPI",
     "start": 0,
     "end": 5,
-    "font": "Source Han Sans",read
+    "font": "Source Han Sans",
     "font_color": "#FFD700",
     "font_size": 48,
     "shadow_enabled": True,
     "background_color": "#000000"
 })
-
-print(f"Text addition result: {response.json()}")
+print(response.json())
 ```
 
-More examples can be found in the `example.py` file.
+📋 See `example.py` for comprehensive examples.
 
-### 2\. MCP Protocol Example
+### MCP Protocol Examples
 
-Complete workflow
-
+**Complete Workflow**
 ```python
-# 1. Create a new project
+# Initialize project
 draft = mcp_client.call_tool("create_draft", {
-    "width": 1080,
-    "height": 1920
+    "width": 1080, "height": 1920
 })
 draft_id = draft["result"]["draft_id"]
 
-# 2. Add background video
+# Add background video
 mcp_client.call_tool("add_video", {
     "video_url": "https://example.com/bg.mp4",
     "draft_id": draft_id,
-    "start": 0,
-    "end": 10,
-    "volume": 0.6
+    "start": 0, "end": 10, "volume": 0.6
 })
 
-# 3. Add title text
+# Add animated title
 mcp_client.call_tool("add_text", {
     "text": "AI-Driven Video Production",
     "draft_id": draft_id,
-    "start": 1,
-    "end": 6,
+    "start": 1, "end": 6,
     "font_size": 56,
     "shadow_enabled": True,
     "background_color": "#1E1E1E"
 })
 
-# 4. Add keyframe animation
+# Apply keyframe animation
 mcp_client.call_tool("add_video_keyframe", {
     "draft_id": draft_id,
     "track_name": "main",
@@ -213,28 +198,22 @@ mcp_client.call_tool("add_video_keyframe", {
     "values": ["1.0", "1.2", "0.8"]
 })
 
-# 5. Save the project
+# Save and export
 result = mcp_client.call_tool("save_draft", {
     "draft_id": draft_id
 })
-
-print(f"Project saved: {result['result']['draft_url']}")
+print(f"Project ready: {result['result']['draft_url']}")
 ```
 
-Advanced text effects
-
+**Advanced Text Effects**
 ```python
-# Multi-style colored text
+# Multi-color animated text
 mcp_client.call_tool("add_text", {
-    "text": "Colored text effect demonstration",
+    "text": "Dynamic Color Text",
     "draft_id": draft_id,
-    "start": 2,
-    "end": 8,
+    "start": 2, "end": 8,
     "font_size": 42,
     "shadow_enabled": True,
-    "shadow_color": "#FFFFFF",
-    "background_alpha": 0.8,
-    "background_round_radius": 20,
     "text_styles": [
         {"start": 0, "end": 2, "font_color": "#FF6B6B"},
         {"start": 2, "end": 4, "font_color": "#4ECDC4"},
@@ -243,53 +222,46 @@ mcp_client.call_tool("add_text", {
 })
 ```
 
-### 3\. Downloading Drafts
+## Working with Drafts
 
-Calling `save_draft` will generate a folder starting with `dfd_` in the current directory of `capcut_server.py`. Copy this to the CapCut/Jianying drafts directory to see the generated draft in the application.
+When you call `save_draft`, a folder prefixed with `dfd_` is created in the `capcut_server.py` directory. Simply copy this folder to your CapCut/JianYing drafts folder to access your project locally.
 
-## Pattern
+## Templates & Examples
 
-You can find a lot of pattern in the `pattern` directory.
+Explore production-ready templates in the [`pattern`](pattern) directory for common use cases.
 
-## Community & Support
+## Contributing & Support
 
-We welcome contributions of all forms\! Our iteration rules are:
+We welcome all contributions! Our development workflow:
 
-  - No direct PRs to main
-  - PRs can be submitted to the dev branch
-  - Merges from dev to main and releases will happen every Monday
+- **Development**: Submit PRs to the `dev` branch
+- **Releases**: Weekly merges from `dev` to `main` every Monday
+- **Guidelines**: See [CONTRIBUTING.md](CONTRIBUTING.md) for details
 
-## Contact Us
+### Get Involved
 
-If you want to:
+**🎬 Video Production Partnership**
+Need help with batch video production? I provide free consulting to help integrate CapCutAPI into your workflow. In exchange, we open-source your production templates to benefit the community.
 
-  - Feedback on issues
-  - Feature suggestions
-  - Get latest news
+**👥 Join the Team**
+Help build the future of AI-powered video editing. While the MCP Editing Agent, web client, and cloud rendering modules remain private, core functionality is open for contributions.
 
-**Contact**: sguann2023@gmail.com
-### 🤝 Collaboration
+**📧 Contact**: sguann2023@gmail.com
 
-  - **Video Production**: Want to use this API for batch production of videos? I offer free consulting services to help you use this API. In return, I'll ask for the production workflow template to be **open-sourced** in the `template` directory of this project.
-
-  - **Join us**: Our goal is to provide a stable and reliable video editing tool that integrates well with AI-generated images, videos, and audio. If you are interested, submit a PR and I'll see it. For more in-depth involvement, the code for the MCP Editing Agent, web-based editing client, and cloud rendering modules has not been open-sourced yet.
-
-**Contact**: sguann2023@gmail.com
-
-## 📈 Star History
+## Community & Stats
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=sun-guannan/CapCutAPI&type=Date)](https://www.star-history.com/#sun-guannan/CapCutAPI&Date)
+[![Star History](https://api.star-history.com/svg?repos=sun-guannan/CapCutAPI&type=Date)](https://www.star-history.com/#sun-guannan/CapCutAPI&Date)
 
-![GitHub repo size](https://img.shields.io/github/repo-size/sun-guannan/CapCutAPI?style=flat-square)
-![GitHub code size](https://img.shields.io/github/languages/code-size/sun-guannan/CapCutAPI?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/sun-guannan/CapCutAPI?style=flat-square)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/sun-guannan/CapCutAPI?style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/sun-guannan/CapCutAPI?style=flat-square)
+![Repo Size](https://img.shields.io/github/repo-size/sun-guannan/CapCutAPI?style=flat-square)
+![Code Size](https://img.shields.io/github/languages/code-size/sun-guannan/CapCutAPI?style=flat-square)
+![Issues](https://img.shields.io/github/issues/sun-guannan/CapCutAPI?style=flat-square)
+![PRs](https://img.shields.io/github/issues-pr/sun-guannan/CapCutAPI?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/sun-guannan/CapCutAPI?style=flat-square)
 
+[![MSeeP Verified](https://mseep.ai/badge.svg)](https://mseep.ai/app/69c38d28-a97c-4397-849d-c3e3d241b800)
 
-[![Verified on MSeeP](https://mseep.ai/badge.svg)](https://mseep.ai/app/69c38d28-a97c-4397-849d-c3e3d241b800)
 </div>
 
-*Made with ❤️ by the CapCutAPI Community*
+*Crafted with ❤️ by the CapCutAPI community*
