@@ -5,11 +5,16 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "capcut-api"
 version = "1.0.0"
-description = "Open source CapCut API tool with MCP support"
+description = "Open source CapCut API tool with MCP support for video editing automation"
 readme = "README.md"
 requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "CapCutAPI Team", email = "team@capcutapi.com"},
+]
+keywords = ["capcut", "video-editing", "api", "automation", "jianying", "mcp", "video-processing"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
@@ -17,29 +22,183 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
 ]
 dependencies = [
-    "requests>=2.28.0",
-    "Pillow>=9.0.0",
-    "numpy>=1.21.0",
-    "opencv-python>=4.6.0",
-    "ffmpeg-python>=0.2.0",
-    "pydantic>=2.0.0",
-    "fastapi>=0.100.0",
-    "uvicorn[standard]>=0.23.0",
+    "requests>=2.28.0,<3.0.0",
+    "Pillow>=9.0.0,<11.0.0",
+    "numpy>=1.21.0,<2.0.0",
+    "opencv-python>=4.6.0,<5.0.0",
+    "ffmpeg-python>=0.2.0,<0.3.0",
+    "pydantic>=2.0.0,<3.0.0",
+    "fastapi>=0.100.0,<1.0.0",
+    "uvicorn[standard]>=0.23.0,<1.0.0",
+    "python-dotenv>=1.0.0,<2.0.0",
+    "psutil>=5.9.0,<6.0.0",
+    "imageio>=2.25.0,<3.0.0",
+    "oss2>=2.17.0,<3.0.0",
+    "json5>=0.9.0,<1.0.0",
 ]
 
 [project.optional-dependencies]
 mcp = [
-    "mcp>=1.0.0",
-    "aiohttp>=3.8.0",
-    "websockets>=11.0",
-    "jsonrpc-base>=2.2.0",
-    "jsonrpc-websocket>=3.1.0",
-    "jsonrpc-async>=2.1.0",
+    "mcp>=1.0.0,<2.0.0",
+    "aiohttp>=3.8.0,<4.0.0",
+    "websockets>=11.0,<12.0.0",
+    "jsonrpc-base>=2.2.0,<3.0.0",
+    "jsonrpc-websocket>=3.1.0,<4.0.0",
+    "jsonrpc-async>=2.1.0,<3.0.0",
+]
+dev = [
+    "pytest>=7.0.0,<8.0.0",
+    "pytest-cov>=4.0.0,<5.0.0",
+    "pytest-asyncio>=0.21.0,<1.0.0",
+    "pytest-mock>=3.10.0,<4.0.0",
+    "black>=23.0.0,<24.0.0",
+    "isort>=5.12.0,<6.0.0",
+    "flake8>=6.0.0,<7.0.0",
+    "mypy>=1.5.0,<2.0.0",
+    "bandit>=1.7.0,<2.0.0",
+    "safety>=2.3.0,<3.0.0",
+    "pre-commit>=3.3.0,<4.0.0",
+    "sphinx>=7.0.0,<8.0.0",
+    "sphinx-rtd-theme>=1.3.0,<2.0.0",
+    "watchdog>=3.0.0,<4.0.0",
+    "ipython>=8.0.0,<9.0.0",
 ]
 
 [project.urls]
 Homepage = "https://github.com/ashreo/CapCutAPI"
-Repository = "https://github.com/ashreo/CapCutAPI.git"
+Repository = "https://github.com/ashreo/CapCutAPI"
 Issues = "https://github.com/ashreo/CapCutAPI/issues"
+Documentation = "https://github.com/ashreo/CapCutAPI#readme"
+Changelog = "https://github.com/ashreo/CapCutAPI/blob/main/CHANGELOG.md"
+
+[project.scripts]
+capcut-server = "capcut_server:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["capcut_server*", "pyJianYingDraft*", "settings*"]
+exclude = ["tests*", "template*", "template_jianying*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | template
+  | template_jianying
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+known_first_party = ["capcut_server", "pyJianYingDraft", "settings"]
+skip = [".gitignore", ".dockerignore", "template", "template_jianying"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".eggs",
+    "*.egg-info",
+    ".venv",
+    "venv",
+    ".mypy_cache",
+    ".pytest_cache",
+    "template",
+    "template_jianying",
+]
+per-file-ignores = [
+    "__init__.py:F401",
+    "tests/*:S101",
+]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+exclude = [
+    "template/",
+    "template_jianying/",
+    "tests/",
+    "build/",
+    "dist/",
+    ".venv/",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = [
+    "-ra",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=capcut_server",
+    "--cov=pyJianYingDraft",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+testpaths = ["tests"]
+markers = [
+    "unit: Unit tests",
+    "integration: Integration tests",
+    "e2e: End-to-end tests",
+    "slow: Slow tests",
+    "api: API tests",
+    "security: Security tests",
+]
+
+[tool.coverage.run]
+source = ["capcut_server", "pyJianYingDraft", "settings"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "template/*",
+    "template_jianying/*",
+    "venv/*",
+    ".venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv", ".venv", "template", "template_jianying"]
+skips = ["B101", "B601"]

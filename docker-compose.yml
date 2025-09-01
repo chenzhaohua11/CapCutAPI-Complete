@@ -2,33 +2,129 @@ version: '3.8'
 
 services:
   capcut-api:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: capcut-api
+    restart: unless-stopped
     ports:
       - "9001:9001"
-    volumes:
-      - ./config.json:/app/config.json
-      - ./drafts:/app/drafts
-      - ./media:/app/media
+      - "8080:8080"
     environment:
+      - FLASK_ENV=production
       - PYTHONPATH=/app
-      - DEBUG=0
-    restart: unless-stopped
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./drafts:/app/drafts:rw
+      - ./media:/app/media:rw
+      - ./logs:/app/logs:rw
+      - ./config.json:/app/config.json:ro
+    networks:
+      - capcut-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9001/health"]
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:9001/health', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
+    security_opt:
+      - no-new-privileges:true
+    read_only: false
+    tmpfs:
+      - /tmp:noexec,nosuid,size=100m
 
-  # 可选：使用nginx作为反向代理
+  # Development environment
+  capcut-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: capcut-dev
+    ports:
+      - "9002:9001"
+    environment:
+      - FLASK_ENV=development
+      - DEBUG=1
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app:rw
+      - /app/__pycache__
+      - /app/.pytest_cache
+      - /app/drafts
+      - /app/media
+      - /app/logs
+    networks:
+      - capcut-network
+    profiles:
+      - dev
+
+  # Testing environment
+  capcut-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: capcut-test
+    environment:
+      - FLASK_ENV=testing
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app:ro
+      - /app/__pycache__
+      - /app/.pytest_cache
+    command: ["pytest", "-v", "--tb=short", "-m", "not e2e"]
+    networks:
+      - capcut-network
+    profiles:
+      - test
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: capcut-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - capcut-network
+    command: redis-server --appendonly yes
+    profiles:
+      - cache
+
+  # Nginx reverse proxy for production
   nginx:
     image: nginx:alpine
+    container_name: capcut-nginx
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./logs/nginx:/var/log/nginx
     depends_on:
       - capcut-api
-    restart: unless-stopped
+    networks:
+      - capcut-network
     profiles:
-      - with-nginx
+      - proxy
+
+networks:
+  capcut-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  redis_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ./data/redis

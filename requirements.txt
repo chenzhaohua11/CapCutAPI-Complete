@@ -1,6 +1,19 @@
-imageio
-psutil
-flask
-requests
-oss2
-json5
+# Core dependencies with security-focused version constraints
+flask>=2.3.0,<3.0.0
+requests>=2.31.0,<3.0.0
+oss2>=2.18.0,<3.0.0
+json5>=0.9.0,<1.0.0
+
+# Media processing
+imageio>=2.31.0,<3.0.0
+opencv-python>=4.8.0,<5.0.0
+Pillow>=10.0.0,<11.0.0
+
+# System utilities
+psutil>=5.9.0,<6.0.0
+python-dotenv>=1.0.0,<2.0.0
+
+# Optional dependencies for enhanced functionality
+pydantic>=2.4.0,<3.0.0
+fastapi>=0.104.0,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
