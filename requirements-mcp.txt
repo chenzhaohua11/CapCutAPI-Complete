@@ -1,0 +1,18 @@
+# MCP Protocol dependencies
+mcp==1.0.0
+asyncio-mqtt==0.16.1
+websockets==12.0
+
+# JSON-RPC support
+jsonrpc-async==3.1.0
+
+# Enhanced logging for MCP
+structlog==23.2.0
+
+# Optional: For MCP testing
+pytest-mcp==0.1.0
+
+# Core dependencies (duplicated for MCP standalone)
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
