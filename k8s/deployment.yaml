@@ -1,0 +1,129 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capcut-api
+  labels:
+    app: capcut-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: capcut-api
+  template:
+    metadata:
+      labels:
+        app: capcut-api
+    spec:
+      containers:
+      - name: capcut-api
+        image: capcut-api:latest
+        ports:
+        - containerPort: 9001
+        env:
+        - name: PYTHONPATH
+          value: "/app"
+        - name: DEBUG
+          value: "0"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9001
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9001
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: config
+          mountPath: /app/config.json
+          subPath: config.json
+        - name: drafts
+          mountPath: /app/drafts
+        - name: media
+          mountPath: /app/media
+      volumes:
+      - name: config
+        configMap:
+          name: capcut-config
+      - name: drafts
+        persistentVolumeClaim:
+          claimName: capcut-drafts-pvc
+      - name: media
+        persistentVolumeClaim:
+          claimName: capcut-media-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: capcut-api-service
+spec:
+  selector:
+    app: capcut-api
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9001
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: capcut-drafts-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: capcut-media-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: capcut-config
+data:
+  config.json: |
+    {
+      "is_capcut_env": true,
+      "draft_domain": "https://www.capcutapi.top",
+      "port": 9001,
+      "preview_router": "/draft/downloader",
+      "is_upload_draft": false,
+      "oss_config": {
+        "bucket_name": "your-bucket-name",
+        "access_key_id": "your-access-key-id",
+        "access_key_secret": "your-access-key-secret",
+        "endpoint": "https://your-endpoint.aliyuncs.com"
+      },
+      "mp4_oss_config": {
+        "bucket_name": "your-mp4-bucket-name",
+        "access_key_id": "your-access-key-id",
+        "access_key_secret": "your-access-key-secret",
+        "region": "your-region",
+        "endpoint": "http://your-custom-domain"
+      }
+    }
