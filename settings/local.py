@@ -21,7 +21,7 @@ PREVIEW_ROUTER = "/draft/downloader"
 IS_UPLOAD_DRAFT = False
 
 # 端口号
-PORT = 9000
+PORT = 9001
 
 OSS_CONFIG = []
 MP4_OSS_CONFIG=[]

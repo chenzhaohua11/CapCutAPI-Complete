@@ -33,7 +33,7 @@ mkdir -p drafts media logs
 # 启动服务
 echo -e "${BLUE}🌐 服务即将在 http://localhost:9001 启动${NC}"
 echo -e "${BLUE}📊 健康检查: http://localhost:9001/health${NC}"
-echo -e "${BLUE}📝 日志文件: logs/capcut.log${NC}"
+echo -e "${BLUE}📝 日志文件: logs/app.log${NC}"
 echo
 
 python capcut_server.py

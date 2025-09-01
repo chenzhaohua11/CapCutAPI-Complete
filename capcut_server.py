@@ -35,6 +35,15 @@ from pyJianYingDraft.text_segment import TextStyleRange, Text_style, Text_border
 from settings.local import IS_CAPCUT_ENV, DRAFT_DOMAIN, PREVIEW_ROUTER, PORT
 
 app = Flask(__name__)
+
+@app.route('/health')
+def health_check():
+    """健康检查端点"""
+    return jsonify({
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat(),
+        "version": "1.0.0"
+    })
  
 @app.route('/add_video', methods=['POST'])
 def add_video():

@@ -34,7 +34,7 @@ if not exist "logs" mkdir logs
 REM 启动服务
 echo 🌐 服务即将在 http://localhost:9001 启动
 echo 📊 健康检查: http://localhost:9001/health
-echo 📝 日志文件: logs/capcut.log
+echo 📝 日志文件: logs\capcut.log
 echo.
 
 python capcut_server.py
