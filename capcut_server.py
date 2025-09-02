@@ -19,20 +19,12 @@ import random
 import uuid
 import json
 import codecs
-from add_audio_track import add_audio_track
-from add_video_track import add_video_track
-from add_text_impl import add_text_impl
-from add_subtitle_impl import add_subtitle_impl
-from add_image_impl import add_image_impl
-from add_video_keyframe_impl import add_video_keyframe_impl
-from save_draft_impl import save_draft_impl, query_task_status, query_script_impl
-from add_effect_impl import add_effect_impl
-from add_sticker_impl import add_sticker_impl
+from media_processor import MediaProcessor
 from create_draft import create_draft
-from util import generate_draft_url as utilgenerate_draft_url, hex_to_rgb
+from utils import generate_draft_url as utilgenerate_draft_url, hex_to_rgb
 from pyJianYingDraft.text_segment import TextStyleRange, Text_style, Text_border
 
-from settings.local import IS_CAPCUT_ENV, DRAFT_DOMAIN, PREVIEW_ROUTER, PORT
+from config import IS_CAPCUT_ENV, DRAFT_DOMAIN, PREVIEW_ROUTER, PORT
 
 app = Flask(__name__)
 
@@ -95,9 +87,11 @@ def add_video():
         return jsonify(result)
 
     try:
-        draft_result = add_video_track(
+        processor = MediaProcessor()
+        draft_result = processor.add_media(
+            media_type='video',
             draft_folder=draft_folder,
-            video_url=video_url,
+            media_url=video_url,
             width=width,
             height=height,
             start=start,
@@ -112,10 +106,9 @@ def add_video():
             track_name=track_name,
             relative_index=relative_index,
             duration=duration,
-            transition=transition,  # Pass transition type parameter
-            transition_duration=transition_duration,  # Pass transition duration parameter
-            volume=volume,  # Pass volume parameter
-            # Pass mask related parameters
+            transition=transition,
+            transition_duration=transition_duration,
+            volume=volume,
             mask_type=mask_type,
             mask_center_x=mask_center_x,
             mask_center_y=mask_center_y,
@@ -176,10 +169,11 @@ def add_audio():
         return jsonify(result)
 
     try:
-        # Call the modified add_audio_track method
-        draft_result = add_audio_track(
+        processor = MediaProcessor()
+        draft_result = processor.add_media(
+            media_type='audio',
             draft_folder=draft_folder,
-            audio_url=audio_url,
+            media_url=audio_url,
             start=start,
             end=end,
             target_start=target_start,
@@ -187,10 +181,10 @@ def add_audio():
             volume=volume,
             track_name=track_name,
             speed=speed,
-            sound_effects=sound_effects,  # Add audio effect parameters
+            sound_effects=sound_effects,
             width=width,
             height=height,
-            duration=duration  # Add duration parameter
+            duration=duration
         )
         
         result["success"] = True
@@ -283,28 +277,27 @@ def add_subtitle():
         return jsonify(result)
 
     try:
-        # Call add_subtitle_impl method
-        draft_result = add_subtitle_impl(
+        processor = MediaProcessor()
+        draft_result = processor.add_media(
+            media_type='subtitle',
             srt_path=srt,
             draft_id=draft_id,
             track_name=track_name,
             time_offset=time_offset,
-            # Font style parameters
-            font = font,
+            font=font,
             font_size=font_size,
             bold=bold,
             italic=italic,
             underline=underline,
             font_color=font_color,
-            vertical=vertical,  # New: pass vertical parameter
-            alpha=alpha,  # New: pass alpha parameter
+            vertical=vertical,
+            alpha=alpha,
             border_alpha=border_alpha,
             border_color=border_color,
             border_width=border_width,
             background_color=background_color,
             background_style=background_style,
             background_alpha=background_alpha,
-            # Image adjustment parameters
             transform_x=transform_x,
             transform_y=transform_y,
             scale_x=scale_x,
@@ -442,9 +435,9 @@ def add_text():
         return jsonify(result)
 
     try:
-        
-        # Call add_text_impl method
-        draft_result = add_text_impl(
+        processor = MediaProcessor()
+        draft_result = processor.add_media(
+            media_type='text',
             text=text,
             start=start,
             end=end,

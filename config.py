@@ -1,6 +1,20 @@
-"""
-统一配置管理 - 精简优化版
-整合所有配置到一个文件中，提供类型安全和默认值
+"""统一配置管理 - 精简优化版
+
+整合所有配置到一个文件中，提供类型安全和默认值。
+支持从环境变量、配置文件加载配置，并提供类型转换和验证。
+
+使用示例:
+    from config import config
+    
+    # 获取配置
+    port = config.server.port
+    debug = config.server.debug
+    
+    # 获取配置字典
+    server_config = config.get('server')
+    
+    # 更新配置
+    config.update('server', 'port', 8080)
 """
 
 from typing import Dict, Any, Optional
@@ -45,12 +59,42 @@ class CapCutConfig:
 
 @dataclass
 class OptimizationConfig:
-    """优化配置"""
-    enable_async: bool = True
-    enable_cache: bool = True
-    enable_compression: bool = True
-    max_concurrent_tasks: int = 10
-    timeout: int = 30
+    """优化配置
+    
+    控制API的性能和行为优化选项。
+    """
+    # 异步处理选项
+    enable_async: bool = True                # 启用异步处理
+    max_concurrent_tasks: int = 10           # 最大并发任务数
+    thread_pool_size: int = 8                # 线程池大小
+    task_queue_size: int = 100               # 任务队列大小
+    large_file_threshold: int = 5 * 1024 * 1024  # 大文件阈值（5MB）
+    
+    # 缓存选项
+    enable_cache: bool = True                # 启用缓存
+    cache_ttl: int = 3600                    # 缓存生存时间（秒）
+    max_cache_size: int = 1000               # 最大缓存项数
+    cache_cleanup_interval: int = 300        # 缓存清理间隔（秒）
+    
+    # 性能优化选项
+    enable_compression: bool = True          # 启用响应压缩
+    compression_level: int = 6               # 压缩级别（1-9）
+    compression_min_size: int = 1024         # 最小压缩大小（字节）
+    
+    # 超时和重试选项
+    timeout: int = 30                        # 请求超时（秒）
+    retry_count: int = 3                     # 重试次数
+    retry_delay: int = 1                     # 重试延迟（秒）
+    
+    # 限流选项
+    enable_rate_limiting: bool = False       # 启用请求限流
+    rate_limit_per_minute: int = 60          # 每分钟请求限制
+    rate_limit_burst: int = 10               # 突发请求限制
+    
+    # 监控和日志选项
+    enable_performance_tracking: bool = True  # 启用性能跟踪
+    log_slow_requests: bool = True           # 记录慢请求
+    slow_request_threshold: float = 1.0      # 慢请求阈值（秒）
 
 class ConfigManager:
     """配置管理器"""
