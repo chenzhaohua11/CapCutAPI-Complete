@@ -78,6 +78,7 @@ class MetricsCollector:
     def __init__(self):
         self.metrics_buffer: List[PerformanceMetrics] = []
         self.buffer_lock = threading.Lock()
+        self.system_metrics_lock = threading.Lock()
         self.is_collecting = True
         
         # 系统指标
@@ -145,20 +146,21 @@ class MetricsCollector:
         """系统监控循环"""
         while self.is_collecting:
             try:
-                # CPU使用率
-                self.system_metrics['cpu_percent'] = psutil.cpu_percent(interval=1)
-                
-                # 内存使用
-                memory = psutil.virtual_memory()
-                self.system_metrics['memory_usage'] = memory.used
-                
-                # 磁盘使用
-                disk = psutil.disk_usage('/')
-                self.system_metrics['disk_usage'] = (disk.used / disk.total) * 100
-                
-                # 网络IO
-                net_io = psutil.net_io_counters()
-                self.system_metrics['network_io'] = (net_io.bytes_sent, net_io.bytes_recv)
+                with self.system_metrics_lock:
+                    # CPU使用率
+                    self.system_metrics['cpu_percent'] = psutil.cpu_percent(interval=1)
+                    
+                    # 内存使用
+                    memory = psutil.virtual_memory()
+                    self.system_metrics['memory_usage'] = memory.used
+                    
+                    # 磁盘使用
+                    disk = psutil.disk_usage('/')
+                    self.system_metrics['disk_usage'] = (disk.used / disk.total) * 100
+                    
+                    # 网络IO
+                    net_io = psutil.net_io_counters()
+                    self.system_metrics['network_io'] = (net_io.bytes_sent, net_io.bytes_recv)
                 
             except Exception as e:
                 logger.error(f"System monitoring error: {e}")
@@ -168,12 +170,16 @@ class MetricsCollector:
     def record_metric(self, operation: str, duration: float, success: bool = True, 
                      error_message: Optional[str] = None, metadata: Dict[str, Any] = None):
         """记录性能指标"""
+        with self.system_metrics_lock:
+            memory_usage = self.system_metrics['memory_usage']
+            cpu_usage = self.system_metrics['cpu_percent']
+
         metric = PerformanceMetrics(
             timestamp=time.time(),
             operation=operation,
             duration=duration,
-            memory_usage=self.system_metrics['memory_usage'],
-            cpu_usage=self.system_metrics['cpu_percent'],
+            memory_usage=memory_usage,
+            cpu_usage=cpu_usage,
             success=success,
             error_message=error_message,
             metadata=metadata or {}
@@ -209,6 +215,11 @@ class MetricsCollector:
         durations = [m.duration for m in relevant_metrics]
         success_count = sum(1 for m in relevant_metrics if m.success)
         
+        with self.system_metrics_lock:
+            current_memory_mb = self.system_metrics['memory_usage'] / (1024 * 1024)
+            current_cpu_percent = self.system_metrics['cpu_percent']
+            current_disk_percent = self.system_metrics['disk_usage']
+
         return {
             'total_operations': len(relevant_metrics),
             'success_rate': (success_count / len(relevant_metrics)) * 100,
@@ -217,34 +228,41 @@ class MetricsCollector:
             'max_duration': max(durations),
             'p95_duration': sorted(durations)[int(len(durations) * 0.95)],
             'p99_duration': sorted(durations)[int(len(durations) * 0.99)],
-            'current_memory_mb': self.system_metrics['memory_usage'] / (1024 * 1024),
-            'current_cpu_percent': self.system_metrics['cpu_percent'],
-            'current_disk_percent': self.system_metrics['disk_usage']
+            'current_memory_mb': current_memory_mb,
+            'current_cpu_percent': current_cpu_percent,
+            'current_disk_percent': current_disk_percent
         }
     
     def get_system_health(self) -> Dict[str, str]:
         """获取系统健康状态"""
         health_status = "healthy"
         
+        with self.system_metrics_lock:
+            memory_usage = self.system_metrics['memory_usage']
+            cpu_percent = self.system_metrics['cpu_percent']
+            disk_usage = self.system_metrics['disk_usage']
+            network_sent = self.system_metrics['network_io'][0]
+            network_recv = self.system_metrics['network_io'][1]
+
         # 检查内存使用
-        if self.system_metrics['memory_usage'] > 4 * 1024 * 1024 * 1024:  # 4GB
+        if memory_usage > 4 * 1024 * 1024 * 1024:  # 4GB
             health_status = "warning"
         
         # 检查CPU使用
-        if self.system_metrics['cpu_percent'] > 90:
+        if cpu_percent > 90:
             health_status = "critical"
         
         # 检查磁盘使用
-        if self.system_metrics['disk_usage'] > 90:
+        if disk_usage > 90:
             health_status = "critical"
         
         return {
             'status': health_status,
-            'memory_usage_mb': f"{self.system_metrics['memory_usage'] / (1024 * 1024):.2f}",
-            'cpu_usage_percent': f"{self.system_metrics['cpu_percent']:.2f}",
-            'disk_usage_percent': f"{self.system_metrics['disk_usage']:.2f}",
-            'network_sent_mb': f"{self.system_metrics['network_io'][0] / (1024 * 1024):.2f}",
-            'network_recv_mb': f"{self.system_metrics['network_io'][1] / (1024 * 1024):.2f}"
+            'memory_usage_mb': f"{memory_usage / (1024 * 1024):.2f}",
+            'cpu_usage_percent': f"{cpu_percent:.2f}",
+            'disk_usage_percent': f"{disk_usage:.2f}",
+            'network_sent_mb': f"{network_sent / (1024 * 1024):.2f}",
+            'network_recv_mb': f"{network_recv / (1024 * 1024):.2f}"
         }
 
 class PerformanceTracker:

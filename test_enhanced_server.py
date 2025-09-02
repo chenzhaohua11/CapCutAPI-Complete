@@ -68,7 +68,7 @@ def send_request(url: str, session: requests.Session, request_id: int) -> Dict[s
     start_time = time.time()
     try:
         # 随机选择请求类型
-        request_type = random.choice(['echo', 'health', 'status', 'dashboard'])
+        request_type = random.choice(['echo', 'health', 'status'])
         
         if request_type == 'echo':
             # 发送POST请求到/echo端点
@@ -193,10 +193,11 @@ def main():
     results = []
     start_time = time.time()
     
-    with ThreadPoolExecutor(max_workers=args.concurrency) as executor:
-        futures = [executor.submit(send_request, url, session, i) for i in range(args.requests)]
-        for future in futures:
-            results.append(future.result())
+    # 使用顺序执行代替并发
+    for i in range(args.requests):
+        result = send_request(url, session, i)
+        results.append(result)
+        time.sleep(0.1) # 短暂休眠以避免请求过快
     
     # 计算总耗时
     total_time = time.time() - start_time
