@@ -15,3 +15,9 @@
 2025-09-02 10:57:45,390 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
 2025-09-02 11:14:19,382 - __main__ - INFO - ½¡¿µ¼ì²é
 2025-09-02 11:14:19,383 - werkzeug - INFO - 127.0.0.1 - - [02/Sep/2025 11:14:19] "GET /health HTTP/1.1" 200 -
+2025-09-02 11:18:27,005 - __main__ - INFO - Æô¶¯ÔöÇ¿°æCapCut API·þÎñÆ÷ÔÚ 0.0.0.0:5000...
+2025-09-02 11:18:27,015 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.9:5000
+2025-09-02 11:18:27,016 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
